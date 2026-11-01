@@ -13,6 +13,13 @@
   - 传入 .xyz 文件抛 ValueError
   - 目录里混入一个损坏的 pdf，其他文件仍能读出
 """
+"""
+□ PDF 页间拼接用了 \n 吗？AI 可能用空字符串拼接，导致页边界粘连。 y
+□ extract_text() 返回 None 时处理了吗？有些 PDF 页没有文本层，extract_text() 返回 None，直接 "\n".join() 会报 TypeError。AI 初稿经常漏这个。
+□ 不支持的扩展名抛的是 ValueError 吗？AI 可能抛 Exception 或 RuntimeError。
+□ load_directory 里单个文件失败是 continue 而不是 raise 吗？
+□ rglob("*") 是否过滤了非文件（目录也会被匹配到）。
+"""
 
 from pathlib import Path
 from typing import List, Tuple
